@@ -1,0 +1,220 @@
+/*控制条*/
+.controlBox{
+	width:100%;
+	height:80px;
+	/*background:#0ca1f7;*/
+	position:absolute;
+	bottom:0;
+	/*display: none;*/
+}
+.control{
+	width:1200px;
+	height:80px;
+	position:relative;
+	margin:auto;
+}
+.control .left{
+	width:36px;
+	height:36px;
+	background:url('../img/雪碧图.png');
+	background-position:-36px -143px;
+	position:absolute;
+	top:22px;
+	left:54px;
+}
+.control .play{
+	width:60px;
+	height:60px;
+	background:url('../img/雪碧图.png');
+	background-position:0px 6px;
+	position:absolute;
+	top:5px;
+	left:120px;
+}
+
+.control .right{
+	width:36px;
+	height:36px;
+	background:url('../img/雪碧图.png');
+	background-position:120px -143px;
+	position:absolute;
+	top:22px;
+	left:210px;
+}
+.logo img{
+	position:absolute;
+	top:13px;
+	left:290px;
+}
+.control .controlBar{
+	width:600px;
+	height:4px;
+	/*background:#1ba3f1;*/
+	background:rgba(255,255,255,0.5);
+	position:absolute;
+	top:55px;
+	left:380px;
+	border-radius:10px;
+}	
+.moveBar{
+	width:0px;
+	height:4px;
+	background:#00ffbe;
+	border-radius:10px;
+	position:absolute;
+}
+	
+.Bar{
+	width:15px;
+	height:15px;
+	background:white;
+	border-radius:50%;
+	position:absolute;
+	top:-6px;
+}
+.musicName{
+	width:420px;
+	height:20px;
+	color:white;
+	font-size:14px;
+	position:absolute;
+	top:15px;
+	left:380px;
+}
+.time{
+	width:120px;
+	height:20px;
+	position:absolute;
+	top:15px;
+	left:885px;
+}
+.time span{
+	color:white;
+	font-size:14px;
+}
+.volume{
+	width:16px;
+	height:16px;
+	background:url('../img/雪碧图.png');
+	background-position:-64px -195px;
+	position:absolute;
+	top:32px;
+	left:1050px;
+}
+/*.volume:hover{
+	background:url('img/雪碧图.png');
+	background-position:-80px -195px;
+}*/
+.volumeLogo:hover .volumeBox{
+	display:block;
+}
+
+.volumeBox{
+	position:relative;
+	/*display:none;*/
+}
+.volumeBox img{
+	position:absolute;
+	top:-146px;
+	left:-6px;
+}
+.volumeBox .circle{
+	width:12px;
+	height:12px;
+	background:white;
+	border-radius:50%;
+	position:absolute;
+	left:-4px;
+	top:40px;
+}
+.volumeControlBg{
+	width:3px;
+	height:90px;
+	background:#51555c;
+	position:absolute;
+	top:-136px;
+	left:7px;
+	z-index:0;
+	transform:rotate(180deg);
+}
+.volumeControl{
+	width:3px;
+	height:40px;
+	background:#1ba3f1;
+	position:absolute;
+	border-radius:5px;
+}
+/*播放模式*/
+.playModeBox{
+	display: none;
+}
+.playMode{
+	width:16px;
+	height:16px;
+	background:url('../img/雪碧图.png');
+	background-position:-64px -179px;
+	position:absolute;
+	top:32px;
+	left:1145px;
+}
+/*.playMode:hover{
+	background:url('img/雪碧图.png');
+	background-position:-80px -179px;
+}*/
+.playModeBox img{
+	position:absolute;
+	top:-146px;
+	left:-50px;
+}
+.loop{
+	width:118px;
+	height:106px;
+	position:absolute;
+	top:-145px;
+	left:-50px;
+}
+.loop div{
+	display:inline-block;
+}
+.loop .listCycle{
+	width:16px;
+	height:16px;
+	background:url('../img/雪碧图.png');
+	background-position:-64px -179px;
+}
+.loop .listCycle:hover{
+	background:url('../img/雪碧图.png');
+	background-position:-80px -179px;
+}
+.loop .singCycle{
+	width:16px;
+	height:16px;
+	background:url('../img/雪碧图.png');
+	background-position:0px -179px;
+}
+.loop .singCycle:hover{
+	background:url('../img/雪碧图.png');
+	background-position:-16px -179px;
+}
+.loop .randomPlay{
+	width:16px;
+	height:16px;
+	background:url('../img/雪碧图.png');
+	background-position:-128px -179px;
+}
+.loop .randomPlay:hover{
+	background:url('../img/雪碧图.png');
+	background-position:-144px -179px;
+}
+.loop li{
+	width:100%;
+	height:35px;
+	text-align:center;
+	line-height:35px;
+}
+.loop span{
+	color:white;
+	display:inline-block;
+	vertical-align:middle;
+	font-size:14px;
+}

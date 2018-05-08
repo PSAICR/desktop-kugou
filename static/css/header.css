@@ -1,0 +1,302 @@
+* {
+	margin:0;
+	padding:0;
+	outline:none;
+	list-style:none;
+	font-family:微软雅黑;
+	
+}
+html,body{
+	width:100%;
+	height:100%;
+	min-height:650px;
+}
+.box{
+	width:100%;
+	height:100%;
+	background:url('../img/skin/2.png') no-repeat;
+	background-size:100% 100%;
+	position:relative;
+}
+.mask{
+	width:100%;
+	height:100%;
+	background:rgba(0,0,0,0.5);
+	position:absolute;
+	z-index:1;
+	display:none;
+}
+.header{
+	width:100%;
+	height:55px;
+	/*background:#0ca1f7;*/
+
+}
+
+.kuGou{
+	padding:10px;
+	overflow:hidden;
+}
+.kuGou .circle{
+	width:35px;
+	height:35px;
+	border:2px solid white;
+	border-radius:50%;
+	text-align:center;
+	line-height:35px;
+	font-size:22px;
+	color:white;
+}
+.kuGou ul{
+	font-family:sans-serif;
+	position:absolute;
+	top:18px;
+	left:55px;
+}
+.kuGou ul li{
+	float:left;
+	color:white;
+	margin:0px 5px;
+	font-family:SimSun;
+}
+
+
+
+
+
+/*搜索框*/
+.searchBox{
+	position:absolute;
+	top:13px;
+	left:400px;
+}
+
+.search{
+	width:450px;
+	height:28px;
+	font-size:13px;
+	border:0px solid transparent;
+	padding-left:10px;
+	border-radius:15px;
+	position:absolute;
+	left:90px;
+	top:3px;
+}
+.searchImg{
+	width:20px;
+	height:20px;
+	background:url('../img/search.png') no-repeat;
+	background-size:100% 100%;
+	position:absolute;
+	top:7px;
+	left:515px;
+}
+.searchBox ul{
+	position:relative;
+	top:4px;
+}
+.searchBox ul li{
+	margin:0px 8px;
+	float:left;
+}
+.searchBox ul .left{
+	transform:scaleY(2) scaleX(1.5);
+	font-weight:lighter;
+	color:white;
+}
+.searchBox ul .right{
+	transform:scaleY(2) scaleX(1.5);
+	font-weight:lighter;
+	color:white;
+}
+.renovate svg{
+	vertical-align:middle;
+}
+
+/*content*/
+.kgBox .content{
+	/*overflow:hidden;*/
+	position:absolute;
+	top:0;
+	right:0;
+}
+/*滚动条*/
+/*.kgBox .content .line{
+	width:14px;
+	position:absolute;
+	top:40px;
+	right:0px;
+}
+.kgBox .content .line .btn{
+	width:10px;
+	height:40px;
+	background:#cccccc;
+	margin:4px 2px;
+	border-radius:10px;
+	position:absolute;
+}
+.kgBox .content .line .btn:hover{
+	background:#7d7d7d;
+}*/
+/*列表*/
+.kgBox .content .classify{
+	width:100%;
+	min-width:600px;	
+	height:40px;
+	border-bottom:1px solid #cccccc;
+	line-height:40px;
+	display:flex;
+	justify-content:center;
+	position:absolute;
+	/*z-index:3;*/
+	background:white;
+}
+.kgBox .content .classify li{
+	width:100px;
+	text-align:center;
+	float:left;
+}
+
+.kgBox .content .classify li:hover{
+	color:#009FF3;
+}
+/*.kgBox .content .classify .color{
+	color:#009FF3;
+}*/
+/*搜索歌曲显示的部分*/
+.searchContent{
+	display: none;
+	position:absolute;
+	top:40px;
+	overflow-y: auto;
+	/*border: 2px solid red;*/
+}
+
+.searchContent ul li{
+	border-bottom:1px solid #e6e6e6;
+	display: flex;
+	align-items:center;
+	color:black;
+	font-size:12px;
+	font-family: "微软雅黑";
+	padding:2.5px;
+}
+.searchContent ul li:last-child{
+	border-bottom:0px solid transparent;
+}
+.searchContent ul li label .select_btn{
+	width:14px;
+	height:14px;
+	background:url('../img/雪碧图2.png');
+	background-position:-64px -56px;
+	margin-left:30px;
+}
+.searchContent ul li label input[type="checkbox"]:checked+.select_btn{
+	background:url('../img/雪碧图2.png');
+	background-position:-64px -86px;
+}
+
+.music_list li .music_message{
+	display:inline-flex;
+	flex-direction: row;
+}
+.music_message:nth-of-type(1){
+	flex:5;
+}
+.music_message:nth-of-type(2){
+	flex:1.5;
+}
+.music_message:nth-of-type(3){
+	flex:1;
+}
+.music_message:nth-of-type(4){
+	flex:1.5;
+}
+.music_message:nth-of-type(4) span{
+	margin:0px 10px;
+}
+.music_message:nth-of-type(4) span:nth-child(1){
+	margin:0px 5px;
+}
+.music_list li .music_message .column{
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+}
+.music_list li .music_message .column span{
+	margin:2.5px 0;
+}
+.music_list li .music_message .description{
+	color:#999999;
+}
+
+.music_play{
+	width:16px;
+	height:16px;
+	background: url('http://static.kgimg.com/common/images/pc_temp_v2/icon_splice.png?20150814');
+	background-position:0px 0px;
+}
+.music_play:hover{
+	background-position:0px -60px;
+}
+.music_add{
+	width:16px;
+	height:16px;
+	background: url('http://static.kgimg.com/common/images/pc_temp_v2/icon_splice.png?20150814');
+	background-position:-57px 0px;
+}
+.music_add:hover{
+	background-position:-57px -60px;
+}
+
+.music_collection{
+	width:16px;
+	height:16px;
+	background: url('http://static.kgimg.com/common/images/pc_temp_v2/icon_splice.png?20150814');
+	background-position: 256px -180px;
+}
+.music_collection:hover{
+	background-position:226px -180px;
+}
+.music_download{
+	width:16px;
+	height:16px;
+	background: url('http://static.kgimg.com/common/images/pc_temp_v2/icon_splice.png?20150814');
+	background-position: -90px 0px;
+}
+.music_download:hover{
+	background-position: -90px -60px;
+}
+.module{
+	display: none;
+}
+/*歌词*/
+.lyrics{
+	display: block;
+	position:absolute;
+	top:40px;
+	/*background:linear-gradient(to top,#072680,#0ca1f7);*/
+	color:white;
+	overflow:hidden;
+	
+}
+.music_lrc{
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	margin:auto;
+	text-align:center;
+}
+.music_lrc p{
+	height:40px;
+	line-height:40px;
+}
+
+
+
+
+
+
+

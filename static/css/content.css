@@ -1,0 +1,19 @@
+.kgBox{
+	width:100%;
+	background:white;
+	position:absolute;
+	left:0;
+	top:55px;
+}
+.menu{
+	width:400px;
+	z-index:0;
+	border-right:1px solid rgba(0,0,0,0.5);
+}
+.menu div{
+	width:380px;
+	height:40px;
+	line-height:40px;
+	border-bottom:1px solid #cccccc;
+	padding-left:20px;
+}
