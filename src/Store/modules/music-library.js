@@ -15,9 +15,8 @@ const actions = {
 // 管理数据 对state发生改变
 const mutations = {
   play (state, payload) {
-    // console.log(this.state.controls)
     state.play_url = payload
-    console.log(state.play_url, payload)
+    console.log(payload)
   }
 }
 const getters = {

@@ -9,16 +9,14 @@
           <ul>
             <li @click="login">登录</li>
             <li>|</li>
-            <li @click="register">注册</li>
+            <li>注册</li>
           </ul>
         </div>
       </div>
       <login v-show="show ? true : false" @close="close"></login>
-      <register v-show="show ? true : false" @close="close"></register>
+      <register></register>
       <!-- 搜索框区域 -->
       <div class="searchBox">
-        <ul>
-        </ul>
         <input type="text" class="search" name="keyword" id="" placeholder="请输入歌曲进行搜索" @keydown="search" v-model="searchValue">
       <div class="searchImg"></div>
     </div>
@@ -52,10 +50,6 @@ export default {
   },
   methods: {
     login () {
-      this.$emit('show', this.isShow)
-      this.show = true
-    },
-    register () {
       this.$emit('show', this.isShow)
       this.show = true
     },

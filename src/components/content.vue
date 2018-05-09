@@ -2,7 +2,7 @@
   <!-- 搜索的内容展示区域 -->
   <div class="content" ref="content">
     <ul class="classify">
-      <router-link to="/search" tag="li">搜索</router-link>
+      <router-link to="/search" tag="li" >搜索</router-link>
       <router-link to="/musicLibrary" tag="li">乐库</router-link>
       <router-link to="/musicList" tag="li">歌单</router-link>
       <router-link to="/lrc" tag="li">歌词</router-link>

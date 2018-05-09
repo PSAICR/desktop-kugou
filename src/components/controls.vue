@@ -3,7 +3,7 @@
     <div class="control">
       <!-- 左边的按钮 -->
       <div class="left"></div>
-      <div class="play" ref='playUrl' @click="play">
+      <div :class="isPlay ? 'play' : 'pause'" ref='playUrl' @click="play">
         <audio :src="play_url" autoplay="is_play" ref="music"  loop="true" @canplay="canplay" @timeupdate="timeupdate"></audio>
       </div>
       <div class="right"></div>
@@ -68,16 +68,14 @@ export default {
     return {
       current_time: '00:00',
       duration_time: '00:00',
-      currrent_music_name: '酷狗音乐'
+      currrent_music_name: '酷狗音乐',
+      that: this,
+      isPlay: true
     }
   },
   created () {
   },
   methods: {
-    ...mapActions('musicLibrary', [
-      'play'
-    ]),
-    
     timeupdate (ev) {
       let currentTimeMinute = parseInt(this.$refs.music.currentTime / 60);
       let currentTimeSecond = parseInt(this.$refs.music.currentTime % 60);
@@ -149,18 +147,21 @@ export default {
         this.$refs.moveBar.style.width = x + 'px'
       }
     },
-    mouseup () {
+    mouseup (ev) {
       ev.preventDefault()
       document.onmousemove = null;
     },
     clickBar (ev) {
+      if (this.$refs.music.duration == NaN) {
+        this.current_time = '00:00'
+        return
+      }
       // 设置点击的时候 进度条走的位置
       this.$refs.moveBar.style.width = parseInt(ev.offsetX) + 'px';
       this.$refs.Bar.style.left = parseInt(ev.offsetX) + 'px';
       // 音乐的当前时间 = ev.offsetX / 进度条的宽度 * 音乐的总时长;
       this.current_time = ev.offsetX / this.$refs.controlBar.offsetWidth * this.$refs.music.duration;
-      console.log(ev.offsetX, this.$refs.controlBar.offsetWidth, this.$refs.music.duration)
-    },
+     },
     volumeControl (ev) {
       this.$refs.music.volume = (ev.offsetY / this.$refs.volumeControlBg.clientHeight).toFixed(2);
       this.$refs.volumeControl.style.height = ev.offsetY + 'px'
@@ -191,11 +192,26 @@ export default {
       	endTimeMinute = '0' + parseInt(this.$refs.music.duration / 60)
       }
       this.duration_time = endTimeMinute + ':' + endTimeSecond
+    },
+    ...mapActions('controls', [
+      'play'
+    ]),
+    play () {
+      if (this.$refs.music.paused) {
+        this.$refs.music.play()
+        this.isPlay = false
+      } else {
+        this.$refs.music.pause()
+        this.isPlay = true
+      }
+      console.log(this.isPlay)
     }
   },
   computed: {
-    ...mapState('musicLibrary', ['play_url']),
-    ...mapGetters('controls', [
+    ...mapState('musicLibrary', [
+      'play_url'
+    ]),
+    ...mapGetters('musicLibrary', [
       'play_url'
     ])
   },
@@ -233,7 +249,7 @@ export default {
     top: 22px;
     left: 54px;
 	}
-  .control .play{
+  .play{
     width: 60px;
     height: 60px;
     background: url('../../static/img/sprite.png');
@@ -242,6 +258,15 @@ export default {
     top: 5px;
     left: 120px;
 	}
+  .pause{
+    width: 60px;
+    height: 60px;
+    background: url('../../static/img/sprite.png');
+    background-position: 0px -54px;
+    position: absolute;
+    top: 5px;
+    left: 120px;
+  }
   .control .right{
     width: 36px;
     height: 36px;
@@ -363,6 +388,8 @@ export default {
 		left: 1145px;
 	}
   .playModeBox img{
+    width: 115px;
+    height: 115px;
 		position: absolute;
 		top: -146px;
 		left: -50px;

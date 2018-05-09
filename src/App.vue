@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="mask" v-show="isShow"></div>
-    <my-header :getInfoData.sync="data" :hash="hash" :show="isShow" @show="show"></my-header>
+    <my-header :getInfoData.sync="data" :show="isShow" @show="show"></my-header>
     <div class="kgBox">
       <my-menu></my-menu>
       <my-content :info="data" ref="container"></my-content>

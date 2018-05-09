@@ -45,7 +45,7 @@ export default {
     ])
   },
   computed: {
-    ...mapGetters([
+    ...mapGetters('controls',[
       'play_url'
     ])
   }

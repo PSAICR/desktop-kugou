@@ -9,19 +9,20 @@ const actions = {
 }
 
 const mutations = {
-  play (state, payload) {
-    state.play_url = ''
-    console.log(payload)
-    if (this.$refs.music.paused) {
-      this.$refs.music.play()
-      this.$refs.music.style.background = "url('../../static/img/sprits.png')"
-      this.$refs.music.style.backgroundPosition = '0px -54px'
-    } else {
-      this.$refs.music.pause()
-      this.$refs.music.style.background = "url('../../static/img/sprite.png')"
-      this.$refs.music.style.backgroundPosition = '0px 6px'
-    }
-  }
+  // play (state, payload) {
+  //   console.log(that)
+  //   state.play_url = ''
+  //   console.log(state.play_url, payload)
+  //   if (this.$refs.music.paused) {
+  //     this.$refs.music.play()
+  //     this.$refs.music.style.background = "url('../../static/img/sprits.png')"
+  //     this.$refs.music.style.backgroundPosition = '0px -54px'
+  //   } else {
+  //     this.$refs.music.pause()
+  //     this.$refs.music.style.background = "url('../../static/img/sprite.png')"
+  //     this.$refs.music.style.backgroundPosition = '0px 6px'
+  //   }
+  // }
 }
 
 const getters = {
