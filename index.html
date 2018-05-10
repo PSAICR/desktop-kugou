@@ -18,49 +18,10 @@
     <div id="app"></div>
 </body>
 <script>
-    // //自动获取内容的高度
-    // function autoHeight(){
-    // 	//计算中间区域的高度
-    // 	$('.kgBox').css({
-    // 		"height":$('body').innerHeight() - ($('.controlBox').innerHeight() + $('.header').innerHeight()) + 'px'
-    // 	})
-    // 	//计算左边菜单的宽度
-    // 	$('.menu').css({
-    // 		"height":$('.kgBox').innerHeight() + 'px'
-    // 	})
-    // 	//计算content的宽度
-    // 	$('.kgBox .content').css({
-    // 		"width":$('.kgBox').innerWidth() - $('.menu').outerWidth() + 'px',
-    // 		"height":$('.kgBox').innerHeight() + 'px'
-    // 	})
-    // 	//计算滚动条的高度
-    // 	$('.kgBox .content .line').css({
-    // 		"height":$('.content').innerHeight() - $('.classify').outerHeight() + 'px'
-    // 	})
-    // 	//计算分类的宽度
-    // 	$('.kgBox .content .classify').css({
-    // 		"wdith":$('.kgBox .content').innerWidth() - $('.kgBox .content .line').outerWidth() + 'px'
-    // 	})
-    // 	$('.inner').css({
-    // 		"width":$('.content').innerWidth(),
-    // 		"height":$('.content').innerHeight() - $('.classify').outerHeight()
-    // 	})
-    // 	$('.searchContent').css({
-    // 		"width":$('.content').innerWidth(),
-    // 		"height":$('.content').innerHeight() - $('.classify').outerHeight()
-    // 	})
-    // 	$('.lyrics').css({
-    // 		"width":$('.content').innerWidth(),
-    // 		"height":$('.content').innerHeight() - $('.classify').outerHeight()
-    // 	})
-    // 	$('.music_lrc').css({
-    // 		"top":($('.content').innerHeight() - $('.classify').outerHeight())/2 + 'px'
-    // 	})
-    // }
-    // 	autoHeight();
-    // window.onresize = function(){
-    // 	autoHeight();
-    // }
+    document.addEventListener('mouseup', (ev) => {
+        document.onmousemove = null;
+        return false
+    })
 </script>
 
 </html>

@@ -1,10 +1,10 @@
 <template>
   <div class="controlBox">
-    <div class="control">
+    <div class="control" ref="control">
       <!-- 左边的按钮 -->
       <div class="left"></div>
       <div :class="isPlay ? 'play' : 'pause'" ref='playUrl' @click="play">
-        <audio :src="play_url" autoplay="is_play" ref="music"  loop="true" @canplay="canplay" @timeupdate="timeupdate"></audio>
+        <audio :src="play_url" autoplay="is_play" ref="music"  @canplay="canplay" @timeupdate="timeupdate" @seeked="seeked"></audio>
       </div>
       <div class="right"></div>
       <!-- logo -->
@@ -12,13 +12,13 @@
         <img src="../../static/img/logo.png" alt="">
       </div>
       <!-- 进度条 -->
-      <div class="controlBar" ref="controlBar" @click="clickBar">
+      <div class="controlBar" ref="controlBar" @click="clickBar" >
         <div class="moveBar" ref="moveBar"></div>
-        <div class="Bar" ref="Bar" @mousedown.prevent="mousedown" @mouseup.prevent="mouseup"></div>
+        <div class="Bar" ref="Bar" @mousedown.prevent="mousedown"></div>
       </div>
       <!-- 歌曲名称 -->
       <div class="musicName">
-        <span>{{currrent_music_name}}</span>
+        <span>{{current_music_name}}</span>
       </div>
       <!-- 时间 -->
       <div class="time">
@@ -28,30 +28,22 @@
       </div>
       <!-- 音量控制部分 -->
       <div class="volumeBox">
-        <div class="volume">
-          <img src="../../static/img/volume.png" alt="">
-          <div class="volumeControlBg" @click="volumeControl" ref="volumeControlBg">
+        <div class="volume" @click.self="VolumeShow = !VolumeShow">
+          <img src="../../static/img/volume.png" alt="" v-show="VolumeShow ? true : false">
+          <div class="volumeControlBg" @click="volumeControl" ref="volumeControlBg" v-show="VolumeShow ? true : false">
             <div class="volumeControl" ref="volumeControl"></div>
-            <div class="circle" ref="volumeCircle"></div>
+            <div class="circle" ref="volumeCircle" @mousedown.stop="volumeDrop" @mouseup.stop="volumeDropUp"></div>
           </div>
         </div>
       </div>
       <!-- 播放模式 -->
-      <div class="playMode">
-        <div class="playModeBox">
+      <div class="playMode" @click.self="playModeShow = !playModeShow">
+        <div class="playModeBox" v-show="playModeShow ? true : false">
           <img src="../../static/img/playModeBox.png" alt="" class="img">
           <ul class="loop">
-            <li>
-              <span class="listCycle"></span>
-              <span>列表循环</span>
-            </li>
-            <li>
-              <span class="singCycle"></span>
-              <span>洗脑循环</span>
-            </li>
-            <li>
-              <span class="randomPlay"></span>
-              <span>随机播放</span>
+            <li v-for="(value, key) in playMode" :key="key">
+              <span :class="key"></span>
+              <span>{{value}}</span>
             </li>
           </ul>
         </div>
@@ -68,12 +60,16 @@ export default {
     return {
       current_time: '00:00',
       duration_time: '00:00',
-      currrent_music_name: '酷狗音乐',
-      that: this,
-      isPlay: true
+      isPlay: false,
+      VolumeShow: true,
+      playModeShow: false,
+      volumeClientY: 0,
+      playMode: {
+        listCycle: '列表播放',
+        singCycle: '洗脑循环',
+        randomPlay: '随机播放'
+      }
     }
-  },
-  created () {
   },
   methods: {
     timeupdate (ev) {
@@ -137,7 +133,7 @@ export default {
     mousedown () {
       document.onmousemove = (ev) => {
         ev.preventDefault()
-        let x = (ev.clientX - this.$refs.controlBar.offsetLeft) - this.$refs.Bar.clientWidth / 2
+        let x = (ev.clientX - this.$refs.controlBar.offsetLeft - this.$refs.control.offsetLeft) - this.$refs.Bar.clientWidth / 2
         if (x >= this.$refs.controlBar.clientWidth) {
           x = this.$refs.controlBar.clientWidth
         }else if (x < 0) {
@@ -147,25 +143,59 @@ export default {
         this.$refs.moveBar.style.width = x + 'px'
       }
     },
-    mouseup (ev) {
-      ev.preventDefault()
-      document.onmousemove = null;
-    },
     clickBar (ev) {
       if (this.$refs.music.duration == NaN) {
         this.current_time = '00:00'
         return
       }
+      
+      // durationchange () {
+      //   console.log('时常改变了')
+      // }
       // 设置点击的时候 进度条走的位置
       this.$refs.moveBar.style.width = parseInt(ev.offsetX) + 'px';
       this.$refs.Bar.style.left = parseInt(ev.offsetX) + 'px';
       // 音乐的当前时间 = ev.offsetX / 进度条的宽度 * 音乐的总时长;
       this.current_time = ev.offsetX / this.$refs.controlBar.offsetWidth * this.$refs.music.duration;
-     },
+
+      let currentTimeMinute = parseInt(this.current_time / 60);
+      let currentTimeSecond = parseInt(this.current_time % 60);
+      if (currentTimeSecond <= 9) {
+        currentTimeSecond = '0' + parseInt(this.current_time % 60)
+      }
+      if (currentTimeMinute <= 9) {
+        currentTimeMinute = '0' + parseInt(this.current_time / 60)
+      }
+      this.current_time = currentTimeMinute + ':' + currentTimeSecond;
+      console.log(this.current_time)
+      
+     
+    },
+    
     volumeControl (ev) {
       this.$refs.music.volume = (ev.offsetY / this.$refs.volumeControlBg.clientHeight).toFixed(2);
       this.$refs.volumeControl.style.height = ev.offsetY + 'px'
       this.$refs.volumeCircle.style.top = ev.offsetY + 'px'
+    },
+    volumeDrop () {
+      document.onmousemove = (ev) => {
+        this.volumeClientY = ev.clientY - (document.getElementsByClassName('content')[0].clientHeight + document.getElementsByClassName('control')[0].clientHeight - document.getElementsByClassName('header')[0].clientHeight) - this.$refs.volumeCircle.clientHeight / 2;
+        if (this.volumeClientY <= -this.$refs.volumeControlBg.clientHeight) {
+          this.volumeClientY = -this.$refs.volumeControlBg.clientHeight
+        }else if (this.volumeClientY > 0) {
+          this.volumeClientY = 0
+        }
+        this.$refs.volumeCircle.style.top = -this.volumeClientY + 'px'
+        this.$refs.volumeControl.style.height = -this.volumeClientY + 'px'
+      }
+    },
+    volumeDropUp () {
+      this.$refs.volumeCircle.style.top = -this.volumeClientY + 'px'
+      this.$refs.volumeControl.style.height = -this.volumeClientY + 'px'
+    },
+    seeked () {
+        console.log('时长更改了')
+        clickBar(ev)
     },
     canplay () {
   		// 改变播放状态的图片
@@ -179,7 +209,7 @@ export default {
         this.$refs.moveBar.style.width = 0 + 'px'
         this.$refs.Bar.style.left = 0 + 'px'
         this.$refs.playUrl.style.backgroundPosition = '0 6px'
-        this.currrent_music_name = '酷狗音乐'
+        this.current_music_name = '酷狗音乐'
       }
       
       // 结束时间
@@ -204,16 +234,31 @@ export default {
         this.$refs.music.pause()
         this.isPlay = true
       }
-      console.log(this.isPlay)
     }
+  },
+  mounted() {
+    document.onmousemove = null;
   },
   computed: {
     ...mapState('musicLibrary', [
       'play_url'
     ]),
     ...mapGetters('musicLibrary', [
-      'play_url'
-    ])
+      'play_url',
+      'current_music_name'
+    ]),
+    endTime:function() {
+      let endTimeMinute = parseInt(this.$refs.music.duration / 60)
+      let endTimeSecond = parseInt(this.$refs.music.duration % 60)
+      if (endTimeSecond <= 9) {
+      	endTimeSecond = '0' + parseInt(this.$refs.music.duration % 60)
+      }
+      if (endTimeMinute <= 9) {
+      	endTimeMinute = '0' + parseInt(this.$refs.music.duration / 60)
+      }
+      this.duration_time = endTimeMinute + ':' + endTimeSecond
+    },
+    
   },
   // watch: {
   //   'play_url' (v) {
@@ -239,7 +284,7 @@ export default {
     height: 80px;
     position: relative;
     margin: auto;
-	}
+  }
   .control .left{
     width: 36px;
     height: 36px;
