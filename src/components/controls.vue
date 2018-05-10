@@ -32,7 +32,7 @@
           <img src="../../static/img/volume.png" alt="" v-show="VolumeShow ? true : false">
           <div class="volumeControlBg" @click="volumeControl" ref="volumeControlBg" v-show="VolumeShow ? true : false">
             <div class="volumeControl" ref="volumeControl"></div>
-            <div class="circle" ref="volumeCircle" @mousedown.stop="volumeDrop" @mouseup.stop="volumeDropUp"></div>
+            <div class="circle" ref="volumeCircle" @mousedown.prevent="volumeDrop" @mouseup.prevent="volumeDropUp"></div>
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@ export default {
       current_time: '00:00',
       duration_time: '00:00',
       isPlay: false,
-      VolumeShow: true,
+      VolumeShow: false,
       playModeShow: false,
       volumeClientY: 0,
       playMode: {
@@ -187,11 +187,15 @@ export default {
         }
         this.$refs.volumeCircle.style.top = -this.volumeClientY + 'px'
         this.$refs.volumeControl.style.height = -this.volumeClientY + 'px'
+        //控制音量
+        this.$refs.music.volume = (-this.volumeClientY / this.$refs.volumeControlBg.clientHeight).toFixed(2)
+        console.log(this.$refs.music.volume)
       }
     },
     volumeDropUp () {
       this.$refs.volumeCircle.style.top = -this.volumeClientY + 'px'
       this.$refs.volumeControl.style.height = -this.volumeClientY + 'px'
+      this.$refs.music.volume = (-this.volumeClientY / this.$refs.volumeControlBg.clientHeight).toFixed(2)
     },
     seeked () {
         console.log('时长更改了')
@@ -235,9 +239,6 @@ export default {
         this.isPlay = true
       }
     }
-  },
-  mounted() {
-    document.onmousemove = null;
   },
   computed: {
     ...mapState('musicLibrary', [
